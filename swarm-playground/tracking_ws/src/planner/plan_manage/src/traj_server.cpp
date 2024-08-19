@@ -229,7 +229,7 @@ int main(int argc, char **argv)
   last_yaw_ = 0.0;
   last_yawdot_ = 0.0;
 
-  ros::Duration(1.0).sleep();
+  ros::Duration(0.2).sleep();
 
   ROS_INFO("[Traj server]: ready.");
 

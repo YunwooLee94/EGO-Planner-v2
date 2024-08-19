@@ -30,3 +30,6 @@ add_executable (random_forest src/random_forest_sensing.cpp )
 target_link_libraries(random_forest
   ${catkin_LIBRARIES}
   ${PCL_LIBRARIES})
+add_executable(prior_map_publisher src/prior_map_publisher.cpp)
+target_link_libraries(prior_map_publisher ${catkin_LIBRARIES}
+        ${PCL_LIBRARIES})

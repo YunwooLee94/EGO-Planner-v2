@@ -28,7 +28,10 @@ add_executable(fake_object
   src/fake_object.cpp 
   )
 target_link_libraries(fake_object 
-  ${catkin_LIBRARIES}
-  )
+  ${catkin_LIBRARIES})
+add_executable(target_nav_msgs_generator
+        src/prior_target_trajectory.cpp)
+target_link_libraries(target_nav_msgs_generator
+        ${catkin_LIBRARIES})
 
 

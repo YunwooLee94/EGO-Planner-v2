@@ -1,11 +1,14 @@
 <launch>
-  <node name="joy_node" pkg="joy" type="joy_node">
-    <remap from="joy" to="/joy"/>
-    <param name="dev" value="/dev/input/js0" type="string"/>
-    <param name="deadzone" value="0.1" type="double"/>
-    <param name="autorepeat_rate" value="10.0" type="double"/>
-    <param name="coalesce_interval" value="0.1" type="double"/>
-  </node>
-  <node pkg="fake_object" name="fake_object" type="fake_object" output="screen">
+<!--  <node name="joy_node" pkg="joy" type="joy_node">-->
+<!--    <remap from="joy" to="/joy"/>-->
+<!--    <param name="dev" value="/dev/input/js0" type="string"/>-->
+<!--    <param name="deadzone" value="0.1" type="double"/>-->
+<!--    <param name="autorepeat_rate" value="10.0" type="double"/>-->
+<!--    <param name="coalesce_interval" value="0.1" type="double"/>-->
+<!--  </node>-->
+<!--  <node pkg="fake_object" name="fake_object" type="fake_object" output="screen">-->
+<!--  </node>-->
+  <node pkg="fake_object" name="fake_object" type="target_nav_msgs_generator" output="screen">
+    <param name="target_trajectory_file_name" value="$(find ego_planner)/dmvc_tracker_sim_unstructured.csv"/>
   </node>
 </launch>
