@@ -40,14 +40,14 @@
         <arg name="max_acc" value="5.0" />
         <arg name="max_jer" value="5.0" />
         <!--always set to 1.5 times grater than sensing horizen-->
-        <arg name="planning_horizon" value="1.0" />
+        <arg name="planning_horizon" value="0.8" />
         <arg name="use_distinctive_trajs" value="false" />
         <!-- 1: use 2D Nav Goal to select goal  -->
         <!-- 2: use global waypoints below  -->
         <arg name="flight_type" value="1" />
         <!-- global waypoints -->
         <!-- It generates a piecewise min-snap traj passing all waypoints -->
-        <arg name="point_num" value="1" />
+        <arg name="point_num" value="0" />
         <arg name="point0_x" value="0" />
         <arg name="point0_y" value="0" />
         <arg name="point0_z" value="0" />
@@ -72,7 +72,7 @@
     <node pkg="ego_planner" name="drone_$(arg drone_id)_traj_server" type="traj_server" output="screen">
         <remap from="position_cmd" to="drone_$(arg drone_id)_planning/pos_cmd"/>
         <remap from="~planning/trajectory" to="drone_$(arg drone_id)_planning/trajectory"/>
-        <param name="traj_server/time_forward" value="0.2" type="double"/>
+        <param name="traj_server/time_forward" value="0.10" type="double"/>
     </node>
     <!-- use simulator -->
     <include file="$(find ego_planner)/launch/simulator.xml">

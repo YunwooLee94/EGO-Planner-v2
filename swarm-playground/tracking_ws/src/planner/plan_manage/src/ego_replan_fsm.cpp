@@ -816,7 +816,7 @@ namespace ego_planner
       // if ( object_v_.norm() < 1.0 )
       //   return;
 
-      constexpr double T = 5.0;
+      constexpr double T = 0.8; // Yunwoo
       Eigen::Vector3d goal_p = object_p_ + object_v_ * T + object_q_.matrix() * relative_tracking_p_;
 
       quadrotor_msgs::GoalSet goal_msg;

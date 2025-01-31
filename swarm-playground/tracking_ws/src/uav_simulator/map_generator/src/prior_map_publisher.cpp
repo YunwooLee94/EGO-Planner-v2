@@ -14,6 +14,10 @@ sensor_msgs::PointCloud2 clickMap_pcd;
 
 pcl::PointCloud<pcl::PointXYZ> cloudMap;
 
+//void ReadObstacleConfiguration3D(std::string &file_name){
+//
+//}
+
 void ReadObstacleConfiguration(std::string &file_name){
     std::ifstream obstacle_file;
     obstacle_file.open(file_name.c_str());
@@ -23,7 +27,7 @@ void ReadObstacleConfiguration(std::string &file_name){
     double p1[2], p2[2], p3[2], p4[2];
     int num_point;
     double inflation_size_ = 0.5;
-    double point_resolution_ = 0.2;
+    double point_resolution_ = 0.05;
     /*
      *  p1 --------p2
      *  -          -
@@ -61,7 +65,7 @@ void ReadObstacleConfiguration(std::string &file_name){
             for (int i = 0; i <= num_point; i++) {
                 temp_point.x = float(p1[0] + (p2[0] - p1[0]) / num_point * i);
                 temp_point.y = float(p1[1] + (p2[1] - p1[1]) / num_point * i);
-                for(int j=0;j<10;j++){
+                for(int j=0;j<40;j++){
                     temp_point.z = point_resolution_*j;
                     cloudMap.push_back(temp_point);
                 }
@@ -71,7 +75,7 @@ void ReadObstacleConfiguration(std::string &file_name){
             for (int i = 0; i <= num_point; i++) {
                 temp_point.x = float(p1[0] + (p3[0] - p1[0]) / num_point * i);
                 temp_point.y = float(p1[1] + (p3[1] - p1[1]) / num_point * i);
-                for(int j=0;j<10;j++){
+                for(int j=0;j<40;j++){
                     temp_point.z = point_resolution_*j;
                     cloudMap.push_back(temp_point);
                 }
@@ -81,7 +85,7 @@ void ReadObstacleConfiguration(std::string &file_name){
             for (int i = 0; i <= num_point; i++) {
                 temp_point.x = float(p3[0] + (p4[0] - p3[0]) / num_point * i);
                 temp_point.y = float(p3[1] + (p4[1] - p3[1]) / num_point * i);
-                for(int j=0;j<10;j++){
+                for(int j=0;j<40;j++){
                     temp_point.z = point_resolution_*j;
                     cloudMap.push_back(temp_point);
                 }
@@ -91,7 +95,7 @@ void ReadObstacleConfiguration(std::string &file_name){
             for (int i = 0; i <= num_point; i++) {
                 temp_point.x = float(p4[0] + (p2[0] - p4[0]) / num_point * i);
                 temp_point.y = float(p4[1] + (p2[1] - p4[1]) / num_point * i);
-                for(int j=0;j<10;j++){
+                for(int j=0;j<40;j++){
                     temp_point.z = point_resolution_*j;
                     cloudMap.push_back(temp_point);
                 }
@@ -113,7 +117,7 @@ void ReadObstacleConfiguration(std::string &file_name){
         for (int i = 0; i <= num_point; i++) {
             temp_point.x = float(p1[0] + (p2[0] - p1[0]) / num_point * i);
             temp_point.y = float(p1[1] + (p2[1] - p1[1]) / num_point * i);
-            for(int j=0;j<30;j++){
+            for(int j=0;j<40;j++){
                 temp_point.z = point_resolution_*j;
                 cloudMap.push_back(temp_point);
             }
@@ -123,7 +127,7 @@ void ReadObstacleConfiguration(std::string &file_name){
         for (int i = 0; i <= num_point; i++) {
             temp_point.x = float(p1[0] + (p3[0] - p1[0]) / num_point * i);
             temp_point.y = float(p1[1] + (p3[1] - p1[1]) / num_point * i);
-            for(int j=0;j<30;j++){
+            for(int j=0;j<40;j++){
                 temp_point.z = point_resolution_*j;
                 cloudMap.push_back(temp_point);
             }
@@ -133,7 +137,7 @@ void ReadObstacleConfiguration(std::string &file_name){
         for (int i = 0; i <= num_point; i++) {
             temp_point.x = float(p3[0] + (p4[0] - p3[0]) / num_point * i);
             temp_point.y = float(p3[1] + (p4[1] - p3[1]) / num_point * i);
-            for(int j=0;j<30;j++){
+            for(int j=0;j<40;j++){
                 temp_point.z = point_resolution_*j;
                 cloudMap.push_back(temp_point);
             }
@@ -143,7 +147,7 @@ void ReadObstacleConfiguration(std::string &file_name){
         for (int i = 0; i <= num_point; i++) {
             temp_point.x = float(p4[0] + (p2[0] - p4[0]) / num_point * i);
             temp_point.y = float(p4[1] + (p2[1] - p4[1]) / num_point * i);
-            for(int j=0;j<30;j++){
+            for(int j=0;j<40;j++){
                 temp_point.z = point_resolution_*j;
                 cloudMap.push_back(temp_point);
             }
@@ -156,8 +160,9 @@ int main(int argc, char **argv){
     ros::NodeHandle nh("~");
 
     std::string obstacle_configuration_file_name;
+//    bool is_2d;
     nh.param<std::string>("obstacle_configuration_file_name",obstacle_configuration_file_name,"");
-
+//    nh.param<bool>("is_2d",is_2d, true);
     ros::Publisher global_map_publisher;
     ros::Publisher local_map_publisher;
     ros::Publisher click_map_publisher;
@@ -165,8 +170,10 @@ int main(int argc, char **argv){
     global_map_publisher = nh.advertise<sensor_msgs::PointCloud2>("/map_generator/global_cloud", 1);
     local_map_publisher = nh.advertise<sensor_msgs::PointCloud2>("/map_generator/local_cloud", 1);
     click_map_publisher = nh.advertise<sensor_msgs::PointCloud2>("/pcl_render/node/local_map",1);
-
+//    if(is_2d)
     ReadObstacleConfiguration(obstacle_configuration_file_name);
+//    else
+//        ReadObstacleConfiguration3D(obstacle_configuration_file_name);
 
     pcl::toROSMsg(cloudMap, globalMap_pcd);
     pcl::toROSMsg(cloudMap, localMap_pcd);

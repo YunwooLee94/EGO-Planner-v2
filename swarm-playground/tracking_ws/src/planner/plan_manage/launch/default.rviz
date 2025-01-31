@@ -8,6 +8,7 @@ Panels:
         - /Status1
         - /simulation_map1/Autocompute Value Bounds1
         - /drone01/Planning1
+        - /drone01/Planning1/goal_point1
         - /drone01/Planning1/drone_path1
         - /drone01/Planning1/drone_path1/Offset1
         - /drone01/Mapping1/map inflate1
@@ -272,7 +273,7 @@ Visualization Manager:
               Name: goal_point
               Namespaces:
                 {}
-              Queue Size: 100
+              Queue Size: 10
               Value: true
             - Class: rviz/Marker
               Enabled: false
@@ -780,7 +781,7 @@ Visualization Manager:
               Value: false
           Enabled: true
           Name: Simulation
-      Enabled: true
+      Enabled: false
       Name: drone3
     - Class: rviz/Group
       Displays:
